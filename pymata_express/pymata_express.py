@@ -1982,8 +1982,6 @@ class PymataExpress:
             # get pin value
             value = port_data & 0x01
 
-            last_value = self.digital_pins[pin].current_value
-
             # set the current value in the pin structure
             self.digital_pins[pin].current_value = value
             time_stamp = time.time()
@@ -1997,9 +1995,8 @@ class PymataExpress:
 
             message = [pin_type, pin, value, time_stamp]
 
-            if last_value != value:
-                if self.digital_pins[pin].cb:
-                    await self.digital_pins[pin].cb(message)
+            if self.digital_pins[pin].cb:
+                await self.digital_pins[pin].cb(message)
 
             port_data >>= 1
 
