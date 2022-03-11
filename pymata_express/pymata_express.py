@@ -1307,6 +1307,22 @@ class PymataExpress:
         ]
         await self._send_command(command)
 
+    async def set_pin_mode_custom(self, pin_number: int, mode: int) -> None:
+        """
+        Set a digital pin to an implementation-defined mode.
+
+        :param pin_number: arduino pin number
+
+        :param mode: pin mode constant provided by external implementation
+
+        """
+        command: List[int] = [
+            PrivateConstants.SET_PIN_MODE,
+            pin_number,
+            mode
+        ]
+        await self._send_command(command)
+
     async def _set_pin_mode(self, pin_number, pin_state, callback=None,
                             differential=1):
         """
